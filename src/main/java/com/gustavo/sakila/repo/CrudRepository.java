@@ -1,17 +1,14 @@
 package com.gustavo.sakila.repo;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
-public abstract class CrudRepository<T, ID> {
-    protected final DataSource ds;
-
-    protected CrudRepository(DataSource ds) {
-        this.ds = ds;
-    }
-
-    protected Connection con() throws SQLException {
-        return ds.getConnection();
-    }
+public interface CrudRepository<T, K> {
+    List<T> findAll() throws SQLException;
+    Optional<T> findById(K id) throws SQLException;
+    K insert(T entity) throws SQLException;
+    boolean update(T entity) throws SQLException;
+    boolean delete(K id) throws SQLException;
+    long count() throws SQLException;
 }
